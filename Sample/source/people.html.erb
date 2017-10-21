@@ -1,0 +1,66 @@
+;;;
+"title": "Dr. Jim W. Davis: People",
+"student_list": [
+	"Joe Barker",
+	"Manjari Akella",
+	"Ryan Niemocienski",
+	"Dan Marchese",
+	"Jeremy Ledonne",
+	"Daniya Zamalieva"
+],
+"alumni_list": [
+	"Kyle Salberg",
+	"Michael Schoenberg",
+  "Ronak Buch",
+	"Kevin Streib",
+	"Karthik Sankaranarayanan",
+	"Ryan Feather",
+	"Matt Nedrich",
+	"Mark Keck",
+	"Karl Salva",
+	"Ambrish Tyagi",
+	"Vinay Sharma",
+	"Hui Gao",
+	"Alex Morison",
+	"Vignesh Kannappan",
+	"Stephanie Taylor",
+	"Robin Tan"
+],
+"alumni_desc_list": [
+	"Undergraduate research assistant. Graduated June 2012. (Now at Garmin)",
+	"Undergraduate research assistant. Graduated June 2012. (Now at Microsoft)",
+  "Undergraduate research assistant. Graduated June 2012. (Now at UIUC)",
+	"Ph.D. Thesis: \"Improved Graph-based Clustering with Applications in Computer Vision and Behavior Analysis\", March 2012. (and Post-Doc with Davis)",
+	"Ph.D. Thesis: \"Multiple Instance Learning for Localization and Tracking of Persistent Targets\", August 2011. (Now at IBM India)",
+	"MS Thesis: \"Tracking and Activity Analysis in Wide Area Aerial Surveillance Video\", August 2011. ",
+	"MS Thesis: \"Detecting Behavioral Zones in Local and Global Camera Views\", June 2011. (Now at Intel)",
+	"Ph.D. Thesis: \"Occlusion Recovery and Reasoning for 3D Surveillance\", August 2009. (Now at BAE)",
+	"Undergraduate research assistant. Graduated March 2009. (Now at Numerica)",
+	"Ph.D. Thesis: \"Layered Tracker Switching for Visual Surveillance\", August 2008. (Now at STI - Omron Scientific Technologies)",
+	"Ph.D. Thesis: \"Simultaneous Object Detection and Segmentation using Top-down and Bottom-up Processing\", November 2007. (Now at Texas Instruments)",
+	"Ph.D. Thesis: \"Extracting Key Features for Analysis and Recognition in Computer Vision\", February 2006. (Now at Microsoft)",
+	"MS Thesis: \"An Adaptive Focus-of-Attention Model for Video Surveillance and Monitoring\", August 2006. (Now at OSU/AFRL)",
+	"MS Thesis: \"Automatic Temporal Segmentation of Human Actions\", June 2003. (Now at Microsoft)",
+	"MS Thesis: \"Computer Analysis and Recognition of Walking Movements\", June 2002.",
+	"Undergraduate Honors Thesis: \"Human-Content Video Coding\", March 2002."
+]
+;;;
+<!--@author: John Burgess @date: 10/16/2017 Created the file-->
+<!--@author: Sarah Ryherd @date: 10/17/2017 Edited styling-->
+<!--@author: John Burgess @date: 10/17/2017 Rubified lists-->
+
+<div class="body">
+  <h1>Current Students</h1>
+  <ul class = "people">
+    <% current_page.data.student_list.each do |s| %>
+		<li><%= s %></li>
+		<% end %>
+  </ul>
+	<h1>Alumni</h1>
+	<ul class = "people">
+		<% current_page.data.alumni_list.zip(current_page.data.alumni_desc_list).each do |alumni, desc| %>
+		<li><%= alumni %></li>
+		<dd><%= desc %></dd>
+		<% end %>
+	</ul>
+</div>

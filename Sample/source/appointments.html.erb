@@ -1,0 +1,43 @@
+;;;
+"title": "Dr. Jim W. Davis: Appointments",
+"dep_list": [
+	"<a href=\"https://cse.osu.edu/\">Dept. of Computer Science and Engineering</a>, OSU",
+	"<a href=\"https://cse.osu.edu/\">Dept. of Computer Science and Engineering</a>, OSU",
+	"<a href=\"https://cse.osu.edu/\">Dept. of Computer Science and Engineering</a>, OSU",
+	"<a href=\"https://ergonomics.osu.edu/\">Institute for Ergonomics</a>, OSU",
+	"<a href=\"https://cog.osu.edu/\">Center for Cognitive Science</a>, OSU",
+	"<a href=\"https://accad.osu.edu/\">Advanced Computing Center for the Arts & Design</a>, OSU"
+],
+"date_list": [
+	"2013 - present",
+	"2005 - 2013",
+	"2000 - 2005",
+	"2004 - present",
+	"2000 - present",
+	"2000 - present"
+],
+"pos_list": [
+	"Full Professor",
+	"Associate Professor",
+	"Assistant Professor",
+	"Faculty Member",
+	"Faculty Member",
+	"Affiliated Faculty"
+]
+;;;
+<!--@author: Sarah Ryherd @date: 10/17/17 Created file for clarity.-->
+<!--@author: John Burgess @date: 10/17/2017 Rubified page-->
+<!--@author: Aakash Singh @date: 10/18/2017 Formatted as table-->
+<div class="divTable">
+  <h1>Appointments</h1>
+  <table>
+  	<tr id="row1">
+ 		<th>Duration</th><th>Position</th><th>Location</th>
+  	</tr>
+    <% current_page.data.date_list.zip(current_page.data.pos_list, current_page.data.dep_list).each do |date, pos, dep| %>
+		<tr>
+		<td><%= date %></td><td><%= pos %></td><td><%= dep %></td>
+		</tr>
+	<% end %>
+  </table>
+</div>
