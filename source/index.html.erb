@@ -27,10 +27,66 @@ title: SPrC Homepage
         <div class="col-12">
           <h4>Classes</h4>
         </div>
-        <div class="col">
-          404
+        <div class="col-12">
+          <input id="classes" placeholder="Search for class"/>
+        </div>
+        <div class="col-12 noSideSpace" id="classList">
         </div>
       </div>
     </div>
   </div>
 </div>
+<script>
+  var availableClasses = [
+    "CSE 1011",
+    "CSE 1112",
+    "CSE 2111",
+    "CSE 3121",
+    "CSE 4151",
+    "CSE 5178",
+    "CSE 6196",
+
+  ];
+
+  function drag(e){
+    e.dataTransfer.setData("text", e.target.id);
+  }
+
+  function drop(e){
+    e.preventDefault();
+    var data = e.dataTransfer.getData("text");
+    e.target.append(document.getElementById(data));
+  }
+
+  function appendClass(className){
+    var front = "<div class='col-12' draggable='true' ondragstart='drag(event)'><div class='draggable'>";
+    var end = "<div></div>";
+
+    $("#classList").append(front + className + end);
+  }
+
+  function setClasses(){
+    var filterText = $("#classes").val();
+    debugger;
+    $("#classList").html("");
+    $.each(availableClasses, function(key, className){
+      if(className.includes(filterText)){
+        appendClass(className);
+      }
+    });
+  }
+
+  setClasses();
+
+  $( function() {
+
+      $.each(availableClasses, function(key, className){
+        appendClass(className);
+      });
+
+      $( "#classes" ).autocomplete({
+        source: availableClasses,
+        close: setClasses
+      });
+    } );
+</script>

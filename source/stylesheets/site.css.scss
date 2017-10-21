@@ -4,8 +4,6 @@ body {
   font-family:  "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-
-
 nav {
   border-bottom: 5px solid #bb0000;
   background: #333333;
@@ -28,6 +26,11 @@ nav {
   border-bottom: 1px solid black;
 }
 
+.noSideSpace{
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
 footer{
   p{
     padding-top: 2rem;
@@ -42,4 +45,26 @@ footer{
 span{
 
   color: black;
+}
+
+ul{
+  padding: 0;
+  list-style: none;
+}
+
+.draggable{
+  padding: 7px;
+  background-color: #FF2400;
+  border-radius: 7px;
+  margin: 7px 0px;
+  color: white;
+}
+
+input{
+  padding: 7px;
+  border-radius: 7px;
+  border: 2px solid black;
+  margin-top: 7px;
+  margin-bottom: 7px;
+  width:100%;
 }
