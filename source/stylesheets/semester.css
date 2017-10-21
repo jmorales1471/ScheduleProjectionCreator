@@ -1,0 +1,16 @@
+table{
+  color: white;
+  width: 100%;
+}
+
+h5{
+  padding-top: 7px;
+}
+
+.tablerow{
+  margin:7px;
+  padding:7px;
+  border-radius: 7px;
+  background-color: #FF2400;
+  color: white;
+}

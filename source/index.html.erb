@@ -1,4 +1,5 @@
 ---
+<<<<<<< HEAD
 title: Welcome to Middleman
 ---
 
@@ -21,3 +22,95 @@ title: Welcome to Middleman
   "https://middlemanapp.com/basics/templating_language/",
   target: "_blank"
 ) %>
+=======
+title: SPrC Homepage
+---
+
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h1 class="header">
+        <strong>Full Schedule</strong>
+      </h1>
+    </div>
+    <div class="col-9">
+      <div class="row">
+        <div class="col-12">
+          <h4>Semester</h4>
+        </div>
+        <%= partial "semester"%>
+        <%= partial "semester"%>
+        <div class="col">
+          <span>test2</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-3">
+      <div class="row">
+        <div class="col-12">
+          <h4>Classes</h4>
+        </div>
+        <div class="col-12">
+          <input id="classes" placeholder="Search for class"/>
+        </div>
+        <div class="col-12 noSideSpace" id="classList">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  var availableClasses = [
+    "CSE 1011",
+    "CSE 1112",
+    "CSE 2111",
+    "CSE 3121",
+    "CSE 4151",
+    "CSE 5178",
+    "CSE 6196",
+
+  ];
+
+  function drag(e){
+    e.dataTransfer.setData("text", e.target.id);
+  }
+
+  function drop(e){
+    e.preventDefault();
+    var data = e.dataTransfer.getData("text");
+    e.target.append(document.getElementById(data));
+  }
+
+  function appendClass(className){
+    var front = "<div class='col-12' draggable='true' ondragstart='drag(event)'><div class='draggable'>";
+    var end = "<div></div>";
+
+    $("#classList").append(front + className + end);
+  }
+
+  function setClasses(){
+    var filterText = $("#classes").val();
+    debugger;
+    $("#classList").html("");
+    $.each(availableClasses, function(key, className){
+      if(className.includes(filterText)){
+        appendClass(className);
+      }
+    });
+  }
+
+  setClasses();
+
+  $( function() {
+
+      $.each(availableClasses, function(key, className){
+        appendClass(className);
+      });
+
+      $( "#classes" ).autocomplete({
+        source: availableClasses,
+        close: setClasses
+      });
+    } );
+</script>
+>>>>>>> addff47e5a81cd4cdd5b9d4b77a2e1ad549ca2db

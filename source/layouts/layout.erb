@@ -6,11 +6,27 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Use the title from a page's frontmatter if it has one -->
+<<<<<<< HEAD
     <title><%= current_page.data.title || "Middleman" %></title>
+=======
+    <link href="stylesheets/bootstrap.min.css" rel="stylesheet"/>
+    <link href="stylesheets/site.css" rel="stylesheet"/>
+    <link href="stylesheets/semester.css" rel="stylesheet"/>
+    <link href="stylesheets/jquery-ui.css" rel="stylesheet">
+    <script src="javascripts/jquery.js"></script>
+    <script src="javascripts/jquery-ui.js"></script>
+    <title><%= current_page.data.title || "SPrC" %></title>
+>>>>>>> addff47e5a81cd4cdd5b9d4b77a2e1ad549ca2db
     <%= stylesheet_link_tag "site" %>
     <%= javascript_include_tag "site" %>
   </head>
   <body>
+<<<<<<< HEAD
     <%= yield %>
+=======
+    <%= partial "layouts/header" %>
+    <%= yield %>
+    <%= partial "layouts/footer" %>
+>>>>>>> addff47e5a81cd4cdd5b9d4b77a2e1ad549ca2db
   </body>
 </html>
