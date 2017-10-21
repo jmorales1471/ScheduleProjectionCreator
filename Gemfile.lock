@@ -24,6 +24,7 @@ GEM
     execjs (2.7.0)
     fast_blank (1.0.0)
     fastimage (2.1.0)
+    ffi (1.9.18)
     ffi (1.9.18-x64-mingw32)
     haml (5.0.4)
       temple (>= 0.8.0)
@@ -98,6 +99,7 @@ GEM
       execjs (>= 0.3.0, < 3)
 
 PLATFORMS
+  ruby
   x64-mingw32
 
 DEPENDENCIES
