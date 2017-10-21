@@ -10,7 +10,7 @@ GEM
       public_suffix (>= 2.0.2, < 4.0)
     autoprefixer-rails (7.1.5)
       execjs
-    backports (3.10.0)
+    backports (3.10.3)
     coffee-script (2.4.1)
       coffee-script-source
       execjs
@@ -24,7 +24,7 @@ GEM
     execjs (2.7.0)
     fast_blank (1.0.0)
     fastimage (2.1.0)
-    ffi (1.9.18)
+    ffi (1.9.18-x64-mingw32)
     haml (5.0.4)
       temple (>= 0.8.0)
       tilt
@@ -98,7 +98,7 @@ GEM
       execjs (>= 0.3.0, < 3)
 
 PLATFORMS
-  ruby
+  x64-mingw32
 
 DEPENDENCIES
   middleman (~> 4.2)

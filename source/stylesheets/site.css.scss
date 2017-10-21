@@ -1,0 +1,45 @@
+body {
+  background-color: #EAEBEB;
+  color: #333;
+  font-family:  "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+
+
+nav {
+  border-bottom: 5px solid #bb0000;
+  background: #333333;
+  color: white;
+  line-height: 2rem;
+  span{
+    color: white;
+  }
+  a {
+    color: white;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+}
+
+.header{
+  color: #FF2400;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid black;
+}
+
+footer{
+  p{
+    padding-top: 2rem;
+    border-top: 1px solid black;
+  }
+}
+
+.right{
+  float: right;
+}
+
+span{
+
+  color: black;
+}
