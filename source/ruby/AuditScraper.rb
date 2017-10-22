@@ -2,6 +2,7 @@ require 'rubygems'
 require 'nokogiri'
 require 'mechanize'
 require 'open-uri'
+require 'watir'
 
 audit = Nokogiri::HTML(open("JohnAudit.html"))
 
@@ -65,10 +66,40 @@ genEds.each do |node|
     end
   end
 end
-puts gEdsToTake.length
-gEdsToTake.each {|i| puts i.to_s}
+
+#Get Core Classes
+fromCourseListNodes = audit.css("td.fromcourselist")
+courseListStr = fromCourseListNodes.to_s
+coreClassesNodes = audit.css("span.draggable")
+coreClassesArr = coreClassesNodes.map do |i|
+  arr = []
+  arr << i.attribute('department').to_s.gsub(/\s+/,"")
+  arr << i.attribute('number').to_s
+end
+puts coreClassesArr.to_s
 
 #Get Credit Hours for Core Classes
-mechanize = Mechanize.new
-catPage = mechanize.get('https://courses.osu.edu/psp/csosuct/EMPLOYEE/PUB/c/COMMUNITY_ACCESS.OSR_CAT_SRCH.GBL')
-puts catPage.forms.to_s
+=begin
+browser = Watir::Browser.new
+browser.goto('https://courses.osu.edu/psc/csosuct/EMPLOYEE/PUB/c/COMMUNITY_ACCESS.OSR_CAT_SRCH.GBL?PortalActualURL=https%3a%2f%2fcourses.osu.edu%2fpsc%2fcsosuct%2fEMPLOYEE%2fPUB%2fc%2fCOMMUNITY_ACCESS.OSR_CAT_SRCH.GBL&PortalRegistryName=EMPLOYEE&PortalServletURI=https%3a%2f%2fcourses.osu.edu%2fpsp%2fcsosuct%2f&PortalURI=https%3a%2f%2fcourses.osu.edu%2fpsc%2fcsosuct%2f&PortalHostNode=CAMP&NoCrumbs=yes&PortalKeyStruct=yes')
+browser.input(name: 'OSR_CAT_SRCH_WK_CATALOG_NBR').send_keys('2321')
+browser.input(name: 'OSR_CAT_SRCH_WK_BUTTON1').click
+sleep 5
+catalog = Nokogiri::HTML(open("#{browser.html}"))
+=end
+
+
+
+=begin
+agent = Mechanize.new
+catPage = agent.get('https://courses.osu.edu/psc/csosuct/EMPLOYEE/PUB/c/COMMUNITY_ACCESS.OSR_CAT_SRCH.GBL?PortalActualURL=https%3a%2f%2fcourses.osu.edu%2fpsc%2fcsosuct%2fEMPLOYEE%2fPUB%2fc%2fCOMMUNITY_ACCESS.OSR_CAT_SRCH.GBL&PortalRegistryName=EMPLOYEE&PortalServletURI=https%3a%2f%2fcourses.osu.edu%2fpsp%2fcsosuct%2f&PortalURI=https%3a%2f%2fcourses.osu.edu%2fpsc%2fcsosuct%2f&PortalHostNode=CAMP&NoCrumbs=yes&PortalKeyStruct=yes')
+form = catPage.forms.first
+form["OSR_CAT_SRCH_WK_CATALOG_NBR"] = '2321'
+catPage = form.submit
+form = catPage.forms.first
+button = form.buttons.first
+form.submit button
+sleep 5
+puts form.fields.to_s
+puts catPage.parser.css('td[colspan="#{5}"]').to_s
+=end
