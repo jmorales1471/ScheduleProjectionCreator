@@ -10,12 +10,17 @@ title: SPrC Homepage
       </h1>
     </div>
     <div class="col-9">
-      <div class="row">
+      <div class="row" id="addSemester">
         <div class="col-12">
           <h4>Semester</h4>
         </div>
-        <%= partial( "semester", :locals => { :amount => "Autumn 2017"}) %>
-        <%= partial( "semester", :locals => { :amount => "Spring 2018"}) %>
+        <%= partial( "semester", :locals => { :amount => "Autumn 2017", :amountId => "Au2017"}) %>
+        <%= partial( "semester", :locals => { :amount => "Spring 2018", :amountId => "Sp2018"}) %>
+      </div>
+      <div class="row">
+        <div class="col-6" >
+          <button type="button" onclick="addSemester()" class="redbutton">Add Semester</button>
+        </div>
       </div>
     </div>
     <div class="col-3">
@@ -55,6 +60,8 @@ title: SPrC Homepage
     ["TE",[["ECE 1011", 4.0], ["ECE 1121", 4.0], ["ECE 2111", 3.0], ["ECE 3322", 1.0]]],
   ];
 
+  console.log(availableClasses);
+
   function getAvailableClasses(){
     var classes = [];
     $.each(availableClasses, function(key, classList){
@@ -87,6 +94,7 @@ title: SPrC Homepage
       container.append(document.getElementById(data));
       takenClasses.push(takenClass);
     }
+    updateTotalHours();
   }
 
   function dropList(e){
@@ -102,6 +110,30 @@ title: SPrC Homepage
       container = container.parentNode;
     }
     container.append(document.getElementById(data));
+    updateTotalHours();
+  }
+
+  function updateTotalHours(){
+    $(".emptyrow").each(function(){
+      var totalHours = 0.0;
+      $(this).find("span.creditHours").each(function(){
+        totalHours = totalHours + parseFloat($(this).html());
+      });
+      var id = $(this).attr("totalhourid");
+      $("#" + id).html(totalHours);
+    })
+  }
+
+  function addSemester(){
+    var semester = $("div[name='partialSemester']").first();
+    var renameIdSpan = semester.find("div.tabletitlerow").find("span[name=creditHours]");
+    var renameIdEmptyRow = semester.find(".emptyrow");
+    var idS = renameIdSpan.attr("id");
+    var idE = renameIdEmptyRow.attr("totalhourid");
+    var html = semester.html();
+    renameIdSpan.attr("id", idS + "1");
+    renameIdEmptyRow.attr("totalhourid", idE + "1");
+    $("#addSemester").append("<div class='col-6'>" + html + "</div>");
   }
 
   function appendClass(className, containingDiv){

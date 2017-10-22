@@ -8,7 +8,7 @@ h5{
 }
 
 .tablerow{
-  margin:7px;
+  margin:7px 0px;
   padding:7px;
   border-radius: 7px;
   background-color: #bb0000;
@@ -16,7 +16,7 @@ h5{
 }
 
 .tabletitlerow{
-  margin:7px;
+  margin:7px 0px;
   padding:7px;
   border-radius: 7px;
   background-color: #333333;
@@ -24,7 +24,7 @@ h5{
 }
 
 .emptyrow{
-  margin: 7px;
+  margin: 7px 0px;
   padding: 7px;
   border-radius: 7px;
   background-color: white;
