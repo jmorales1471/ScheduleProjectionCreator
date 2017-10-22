@@ -1,28 +1,4 @@
 ---
-<<<<<<< HEAD
-title: Welcome to Middleman
----
-
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 340" class="middleman-logo" aria-labelledby="middleman-logo__title" role="img">
-  <title id="middleman-logo__title">Middleman</title>
-  <path class="middleman-logo__top-left-bar" fill-opacity=".45" d="M0 40L200 0v30L0 60z"/>
-  <path class="middleman-logo__top-right-bar" fill="#fff" d="M200 0l200 40v20L200 30z"/>
-  <path class="middleman-logo__left-m" fill-opacity=".45" d="M0 78v184l45 5V152l45 83 47-83v129l53 7V52l-57 8-43 83-43-70z"/>
-  <path class="middleman-logo__right-m" fill="#fff" d="M400 78v184l-45 5V152l-45 83-47-83v129l-53 7V52l57 8 43 83 43-70z"/>
-  <path class="middleman-logo__bottom-left-bar" fill-opacity=".45" d="M0 300l200 40v-30L0 280z"/>
-  <path class="middleman-logo__bottom-right-bar" fill="#fff" d="M200 340l200-40v-20l-200 30z"/>
-</svg>
-
-<h1>
-  Middleman is Running
-</h1>
-
-<%= link_to(
-  "Read Documentation",
-  "https://middlemanapp.com/basics/templating_language/",
-  target: "_blank"
-) %>
-=======
 title: SPrC Homepage
 ---
 
@@ -68,13 +44,24 @@ title: SPrC Homepage
     </div>
   </div>
 </div>
-
+<script type="text/javascript" src="helpers/coursesTaken.json"></script>
+<script type="text/javascript" src="helpers/genEdsToTake.json"></script>
 <script>
-  var availableClasses = [
-    ["CORE",[["CSE 1011", 4.5], ["CSE 1121", 4.0], ["CSE 2111", 3.0], ["CSE 3322", 1.0]]],
-    ["GE",[["ENGL 1011", 4.0], ["ENGL 1121", 4.0], ["ENGL 2111", 3.0], ["ENGL 3322", 1.0]]],
-    ["TE",[["ECE 1011", 4.0], ["ECE 1121", 4.0], ["ECE 2111", 3.0], ["ECE 3322", 1.0]]],
-  ];
+  var ge = JSON.parse(genEdsToTake);
+
+  var availableClasses = [];
+  var geArr = ["Gen Eds"];
+  var holder = [];
+  for (var i = 0; i < ge.genEds.length; i++){
+    var temp = [];
+    temp.push(ge.genEds[i].courseName);
+    temp.push(parseFloat(ge.genEds[i].credits));
+    holder.push(temp);
+  }
+  geArr.push(holder);
+  var availableClasses = [];
+  availableClasses.push(geArr);
+  console.log(availableClasses);
 
   var takenClasses = [];
 
@@ -86,7 +73,7 @@ title: SPrC Homepage
     e.dataTransfer.setData("text", e.target.id);
   }
 
-  function dropEmpty(e){
+  function dropIntoSemester(e){
     e.preventDefault();
     var data = e.dataTransfer.getData("text");
     var container = e.target;
@@ -173,4 +160,3 @@ title: SPrC Homepage
       $("#classList").accordion();
     } );
 </script>
->>>>>>> addff47e5a81cd4cdd5b9d4b77a2e1ad549ca2db
