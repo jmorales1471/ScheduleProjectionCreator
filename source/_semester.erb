@@ -1,14 +1,11 @@
-<div class="col-6">
+<div class="col-6" name="partialSemester">
 
-<head>
-<title>Semester 1</title>
-</head>
 <link rel="stylesheet"
  type="text/css"
  href="semester.css"/>
 <div class="tablerow">
   <h5>
-    <center>Autumn Semester 2017</center>
+    <center><%=amount%></center>
   </h5>
 </div>
 <div class="tabletitlerow">
@@ -16,13 +13,12 @@
   <span class="creditHours">Credit Hours</span>
 </div>
 
-<div class="emptyrow" ondrop="dropIntoSemester(event)" ondragover="allowDrop(event)">
+<div class="emptyrow" ondrop="dropIntoSemester(event)" ondragover="allowDrop(event)" totalhourid="<%=amountId%>">
 </div>
 
 <div class="tabletitlerow">
-  <span class="className">Total Hours</span>
-  <span class="creditHours">14</span>
+  <span class="className" name="totalHours">Total Hours</span>
+  <span class="creditHours" name="creditHours" id="<%=amountId%>">0</span>
 </div>
-
 
 </div>

@@ -10,12 +10,17 @@ title: SPrC Homepage
       </h1>
     </div>
     <div class="col-9">
-      <div class="row">
+      <div class="row" id="addSemester">
         <div class="col-12">
           <h4>Semester</h4>
         </div>
-        <%= partial "semester"%>
-        <%= partial "semester"%>
+        <%= partial( "semester", :locals => { :amount => "Autumn 2017", :amountId => "Au2017"}) %>
+        <%= partial( "semester", :locals => { :amount => "Spring 2018", :amountId => "Sp2018"}) %>
+      </div>
+      <div class="row">
+        <div class="col-6" >
+          <button type="button" onclick="addSemester()" class="redbutton">Add Semester</button>
+        </div>
       </div>
     </div>
     <div class="col-3">
@@ -27,6 +32,8 @@ title: SPrC Homepage
           <input id="classes" placeholder="Search for class"/>
         </div>
         <div class="col-12" id="classList">
+        </div>
+        <div class="col-12" id="classListSearch" hidden="true">
         </div>
         <div id="sectionHeader" hidden="true">
           <h3 class="headerName"></h3>
@@ -63,6 +70,16 @@ title: SPrC Homepage
   availableClasses.push(geArr);
   console.log(availableClasses);
 
+  function getAvailableClasses(){
+    var classes = [];
+    $.each(availableClasses, function(key, classList){
+      $.each(classList[1], function(key, value){
+        classes.push(value[0]);
+      });
+    });
+    return classes;
+  }
+
   var takenClasses = [];
 
   function allowDrop(ev) {
@@ -85,6 +102,7 @@ title: SPrC Homepage
       container.append(document.getElementById(data));
       takenClasses.push(takenClass);
     }
+    updateTotalHours();
   }
 
   function dropList(e){
@@ -100,6 +118,30 @@ title: SPrC Homepage
       container = container.parentNode;
     }
     container.append(document.getElementById(data));
+    updateTotalHours();
+  }
+
+  function updateTotalHours(){
+    $(".emptyrow").each(function(){
+      var totalHours = 0.0;
+      $(this).find("span.creditHours").each(function(){
+        totalHours = totalHours + parseFloat($(this).html());
+      });
+      var id = $(this).attr("totalhourid");
+      $("#" + id).html(totalHours);
+    })
+  }
+
+  function addSemester(){
+    var semester = $("div[name='partialSemester']").first();
+    var renameIdSpan = semester.find("div.tabletitlerow").find("span[name=creditHours]");
+    var renameIdEmptyRow = semester.find(".emptyrow");
+    var idS = renameIdSpan.attr("id");
+    var idE = renameIdEmptyRow.attr("totalhourid");
+    var html = semester.html();
+    renameIdSpan.attr("id", idS + "1");
+    renameIdEmptyRow.attr("totalhourid", idE + "1");
+    $("#addSemester").append("<div class='col-6'>" + html + "</div>");
   }
 
   function appendClass(className, containingDiv){
@@ -119,7 +161,7 @@ title: SPrC Homepage
     containingDiv.append(divHtml);
   }
 
-  function createSection(classArray){
+  function createSection(classArray, id, searchTerm){
     var sectionName = classArray[0];
     var classes = classArray[1];
 
@@ -127,35 +169,46 @@ title: SPrC Homepage
     $("#sectionHeader").find("div").attr("id", sectionName);
     var sectionHeaderHtml = $("#sectionHeader").html();
 
-    $("#classList").append(sectionHeaderHtml);
+    $(id).append(sectionHeaderHtml);
     var containingDiv = $("#" + sectionName).find("div");
     containingDiv.attr("id", "");
 
     $.each(classes, function(key, classPair){
-      if(!takenClasses.includes(classPair[0])){
+      if(!takenClasses.includes(classPair[0]) && classPair[0].includes(searchTerm)){
         appendClass(classPair, $("#" + sectionName));
       }
     });
   }
 
   function setClasses(){
-    var filterText = $("#classes").val();
     $("#classList").html("");
     $.each(availableClasses, function(key, classArray){
-      createSection(classArray);
+      createSection(classArray, "#classList", "");
+    });
+  }
+
+  function getSearchResults(){
+    var filterText = $("#classes").val();
+    $("#classList").attr("hidden", "true");
+    $("#classListSearch").attr("hidden", "false");
+    $("#classListSearch").html("");
+    $.each(availableClasses, function(key, classArray){
+      createSection(classArray, "#classListSearch", filterText);
     });
   }
 
   setClasses();
 
+  $("#classes").on("keyup", function(){
+    $("#classes").attr("autocomplete", "on");
+  });
 
   $( function() {
       $(".draggable").attr("draggable", "true");
       $(".draggable").attr("ondragstart", "drag(event)");
       setClasses();
       $( "#classes" ).autocomplete({
-        source: availableClasses,
-        close: setClasses
+        source: getAvailableClasses(),
       });
       $("#classList").accordion();
     } );
