@@ -44,7 +44,7 @@ nav {
 }
 
 .header{
-  color: #FF2400;
+  color: #bb0000;
   padding-top: 2rem;
   padding-bottom: 2rem;
   border-bottom: 1px solid black;
@@ -71,6 +71,15 @@ span{
   color: black;
 }
 
+.className{
+  color: white;
+}
+
+.creditHours{
+  color: white;
+  float: right;
+}
+
 ul{
   padding: 0;
   list-style: none;
@@ -78,7 +87,7 @@ ul{
 
 .draggable{
   padding: 7px;
-  background-color: #FF2400;
+  background-color: #bb0000;
   border-radius: 7px;
   margin: 7px 0px;
   color: white;

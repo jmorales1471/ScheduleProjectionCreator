@@ -40,9 +40,6 @@ title: SPrC Homepage
         </div>
         <%= partial "semester"%>
         <%= partial "semester"%>
-        <div class="col">
-          <span>test2</span>
-        </div>
       </div>
     </div>
     <div class="col-3">
@@ -53,64 +50,127 @@ title: SPrC Homepage
         <div class="col-12">
           <input id="classes" placeholder="Search for class"/>
         </div>
-        <div class="col-12 noSideSpace" id="classList">
+        <div class="col-12" id="classList">
+        </div>
+        <div id="sectionHeader" hidden="true">
+          <h3 class="headerName"></h3>
+          <div name="accordionDiv" ondrop="dropList(event)" ondragover="allowDrop(event)"></div>
+        </div>
+        <div id="draggableDiv" hidden="true">
+          <div>
+            <div id="draggedDiv" class="col-12 draggable" draggable="true" ondragstart="drag(event)">
+              <span class="className"></span>
+              <span class="creditHours"></span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
 <script>
   var availableClasses = [
-    "CSE 1011",
-    "CSE 1112",
-    "CSE 2111",
-    "CSE 3121",
-    "CSE 4151",
-    "CSE 5178",
-    "CSE 6196",
-
+    ["CORE",[["CSE 1011", 4.5], ["CSE 1121", 4.0], ["CSE 2111", 3.0], ["CSE 3322", 1.0]]],
+    ["GE",[["ENGL 1011", 4.0], ["ENGL 1121", 4.0], ["ENGL 2111", 3.0], ["ENGL 3322", 1.0]]],
+    ["TE",[["ECE 1011", 4.0], ["ECE 1121", 4.0], ["ECE 2111", 3.0], ["ECE 3322", 1.0]]],
   ];
+
+  var takenClasses = [];
+
+  function allowDrop(ev) {
+      ev.preventDefault();
+  }
 
   function drag(e){
     e.dataTransfer.setData("text", e.target.id);
   }
 
-  function drop(e){
+  function dropEmpty(e){
     e.preventDefault();
     var data = e.dataTransfer.getData("text");
-    e.target.append(document.getElementById(data));
+    var container = e.target;
+    while(container.getAttribute("class") != "emptyrow"){
+      container = container.parentNode;
+    }
+    var takenClass = $("#" + data).find("span.className").html();
+    if(takenClass!=undefined){
+      container.append(document.getElementById(data));
+      takenClasses.push(takenClass);
+    }
   }
 
-  function appendClass(className){
-    var front = "<div class='col-12' draggable='true' ondragstart='drag(event)'><div class='draggable'>";
-    var end = "<div></div>";
+  function dropList(e){
+    e.preventDefault();
+    var data = e.dataTransfer.getData("text");
+    var takenClass = $("#" + data).find("span.className").html();
 
-    $("#classList").append(front + className + end);
+    if(takenClasses.includes(takenClass)){
+      takenClasses.splice(takenClasses.indexOf(takenClass), 1);
+    }
+    var container = e.target;
+    while(container.getAttribute("name") != "accordionDiv"){
+      container = container.parentNode;
+    }
+    container.append(document.getElementById(data));
+  }
+
+  function appendClass(className, containingDiv){
+    $("#draggableDiv").find(".className").html(className[0]);
+    $("#draggableDiv").find(".creditHours").html(className[1]);
+    var array = className[0].split(" ");
+    var id = "";
+    $.each(array, function(key, value){
+      id = id + value;
+    });
+
+    var oldId = $("#draggedDiv").attr("id");
+
+    $("#draggedDiv").attr("id", id);
+    var divHtml = $("#draggableDiv").html();
+    $("#" + id).attr("id", oldId);
+    containingDiv.append(divHtml);
+  }
+
+  function createSection(classArray){
+    var sectionName = classArray[0];
+    var classes = classArray[1];
+
+    $("#sectionHeader").find("h3").html(sectionName);
+    $("#sectionHeader").find("div").attr("id", sectionName);
+    var sectionHeaderHtml = $("#sectionHeader").html();
+
+    $("#classList").append(sectionHeaderHtml);
+    var containingDiv = $("#" + sectionName).find("div");
+    containingDiv.attr("id", "");
+
+    $.each(classes, function(key, classPair){
+      if(!takenClasses.includes(classPair[0])){
+        appendClass(classPair, $("#" + sectionName));
+      }
+    });
   }
 
   function setClasses(){
     var filterText = $("#classes").val();
-    debugger;
     $("#classList").html("");
-    $.each(availableClasses, function(key, className){
-      if(className.includes(filterText)){
-        appendClass(className);
-      }
+    $.each(availableClasses, function(key, classArray){
+      createSection(classArray);
     });
   }
 
   setClasses();
 
+
   $( function() {
-
-      $.each(availableClasses, function(key, className){
-        appendClass(className);
-      });
-
+      $(".draggable").attr("draggable", "true");
+      $(".draggable").attr("ondragstart", "drag(event)");
+      setClasses();
       $( "#classes" ).autocomplete({
         source: availableClasses,
         close: setClasses
       });
+      $("#classList").accordion();
     } );
 </script>
 >>>>>>> addff47e5a81cd4cdd5b9d4b77a2e1ad549ca2db
