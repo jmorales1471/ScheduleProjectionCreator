@@ -14,8 +14,9 @@ title: SPrC Homepage
         <div class="col-12">
           <h4>Semester</h4>
         </div>
-        <%= partial( "semester", :locals => { :amount => "Autumn 2017", :amountId => "Au2017"}) %>
-        <%= partial( "semester", :locals => { :amount => "Spring 2018", :amountId => "Sp2018"}) %>
+        <%= partial( "semester", :locals => { :amount => "", :amountId => "a1", :hidden=>"hidden"}) %>
+        <%= partial( "semester", :locals => { :amount => "Autumn 2017", :amountId => "Au2017", :hidden=>""}) %>
+        <%= partial( "semester", :locals => { :amount => "Spring 2018", :amountId => "Sp2018", :hidden=>""}) %>
       </div>
       <div class="row">
         <div class="col-6" >
@@ -54,10 +55,13 @@ title: SPrC Homepage
 <script type="text/javascript" src="helpers/coursesTaken.json"></script>
 <script type="text/javascript" src="helpers/genEdsToTake.json"></script>
 <script>
+  var idNum = 0;
+  var sem = "Autumn";
+  var year = 2018;
   var ge = JSON.parse(genEdsToTake);
 
   var availableClasses = [];
-  var geArr = ["Gen Eds"];
+  var geArr = ["GenEds"];
   var holder = [];
   for (var i = 0; i < ge.genEds.length; i++){
     var temp = [];
@@ -138,7 +142,16 @@ title: SPrC Homepage
     var renameIdEmptyRow = semester.find(".emptyrow");
     var idS = renameIdSpan.attr("id");
     var idE = renameIdEmptyRow.attr("totalhourid");
+    var title = semester.find("center");
+    title.html(sem + " " + year);
+    if(sem == "Autumn"){
+      sem = "Spring";
+      year++;
+    }else{
+      sem = "Autumn";
+    }
     var html = semester.html();
+
     renameIdSpan.attr("id", idS + "1");
     renameIdEmptyRow.attr("totalhourid", idE + "1");
     $("#addSemester").append("<div class='col-6'>" + html + "</div>");
@@ -150,7 +163,8 @@ title: SPrC Homepage
     var array = className[0].split(" ");
     var id = "";
     $.each(array, function(key, value){
-      id = id + value;
+      id = id + value + idNum;
+      idNum++;
     });
 
     var oldId = $("#draggedDiv").attr("id");
@@ -211,5 +225,7 @@ title: SPrC Homepage
         source: getAvailableClasses(),
       });
       $("#classList").accordion();
+      var semester = $("div[name='partialSemester']").first();
+      semester.attr("hidden", "true");
     } );
 </script>
