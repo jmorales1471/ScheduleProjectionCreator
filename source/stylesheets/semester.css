@@ -11,6 +11,23 @@ h5{
   margin:7px;
   padding:7px;
   border-radius: 7px;
-  background-color: #FF2400;
+  background-color: #bb0000;
   color: white;
+}
+
+.tabletitlerow{
+  margin:7px;
+  padding:7px;
+  border-radius: 7px;
+  background-color: #333333;
+  color: white;
+}
+
+.emptyrow{
+  margin: 7px;
+  padding: 7px;
+  border-radius: 7px;
+  background-color: white;
+  border: 2px solid black;
+  color: black;
 }

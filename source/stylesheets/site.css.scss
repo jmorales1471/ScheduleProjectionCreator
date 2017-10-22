@@ -1,4 +1,28 @@
 body {
+<<<<<<< HEAD
+  background-color: #fbc547;
+  color: #333;
+  font-family: -apple-system, BlinkMacSystemFont, "Avenir Next", "Avenir",
+    "Segoe UI", "Lucida Grande", "Helvetica Neue", "Helvetica", "Fira Sans",
+    "Roboto", "Noto", "Droid Sans", "Cantarell", "Oxygen", "Ubuntu",
+    "Franklin Gothic Medium", "Century Gothic", "Liberation Sans", sans-serif;
+  padding: 18vh 1rem;
+  text-align: center;
+}
+
+a {
+  color: rgba(#000, 0.7);
+
+  &:focus,
+  &:hover {
+    color: rgba(#000, 0.6);
+  }
+}
+
+.middleman-logo {
+  margin-bottom: 1rem;
+  width: 10rem;
+=======
   background-color: #EAEBEB;
   color: #333;
   font-family:  "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -20,7 +44,7 @@ nav {
 }
 
 .header{
-  color: #FF2400;
+  color: #bb0000;
   padding-top: 2rem;
   padding-bottom: 2rem;
   border-bottom: 1px solid black;
@@ -47,6 +71,15 @@ span{
   color: black;
 }
 
+.className{
+  color: white;
+}
+
+.creditHours{
+  color: white;
+  float: right;
+}
+
 ul{
   padding: 0;
   list-style: none;
@@ -54,7 +87,7 @@ ul{
 
 .draggable{
   padding: 7px;
-  background-color: #FF2400;
+  background-color: #bb0000;
   border-radius: 7px;
   margin: 7px 0px;
   color: white;
@@ -67,4 +100,5 @@ input{
   margin-top: 7px;
   margin-bottom: 7px;
   width:100%;
+>>>>>>> addff47e5a81cd4cdd5b9d4b77a2e1ad549ca2db
 }
